@@ -1,0 +1,124 @@
+.method {
+  position: relative;
+  background: var(--maroon-900);
+  color: var(--ivory);
+}
+
+.sticky {
+  display: grid;
+  gap: 3rem;
+  padding: clamp(6rem, 12vw, 9rem) var(--gutter);
+}
+
+.wheel {
+  justify-self: center;
+  width: min(80vw, 520px);
+  aspect-ratio: 1;
+  position: relative;
+}
+
+.rangoli {
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 30px 60px rgb(0 0 0 / 0.45));
+}
+
+.wheelCenter {
+  position: absolute;
+  inset: 34%;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: radial-gradient(circle, #3d0c1c, #1a0710);
+  border: 1px solid rgb(217 178 106 / 0.6);
+  text-align: center;
+}
+
+.wheelCenter strong {
+  font-family: var(--font-display), var(--font-deva), Georgia, serif;
+  font-size: clamp(2.6rem, 6vw, 4.6rem);
+  font-weight: 300;
+  line-height: 1;
+  color: var(--gold-bright);
+}
+
+.head :global(.eyebrow) {
+  color: var(--gold);
+}
+
+.head h2 {
+  margin-top: 0.8rem;
+  font-size: var(--fs-xl);
+  font-weight: 300;
+  line-height: 0.95;
+}
+
+.head h2 em {
+  color: var(--gold-bright);
+}
+
+.steps {
+  display: grid;
+  gap: 1.6rem;
+  margin-top: 2.4rem;
+  list-style: none;
+  counter-reset: step;
+}
+
+.step {
+  display: grid;
+  grid-template-columns: 3rem minmax(0, 1fr);
+  gap: 0.2rem 1rem;
+  padding-top: 1.2rem;
+  border-top: 1px solid rgb(217 178 106 / 0.25);
+}
+
+.step span {
+  grid-row: span 2;
+  font-size: 1.6rem;
+  line-height: 1;
+  color: var(--gold);
+}
+
+.step h3 {
+  font-family: var(--font-display), var(--font-deva), Georgia, serif;
+  font-size: clamp(1.5rem, 2.2vw, 2.1rem);
+  font-weight: 400;
+  line-height: 1.1;
+}
+
+.step p {
+  color: rgb(251 246 234 / 0.75);
+}
+
+@media (min-width: 1000px) {
+  .method[data-scene='true'] {
+    height: 320vh;
+  }
+
+  .method[data-scene='true'] .sticky {
+    position: sticky;
+    top: 0;
+    height: 100svh;
+    align-content: center;
+  }
+
+  .sticky {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    align-items: center;
+    gap: var(--gutter);
+  }
+
+  .wheel {
+    width: min(42vw, 78svh, 680px);
+  }
+
+  .method[data-scene='true'] .step {
+    opacity: 0.28;
+    transition: opacity 0.5s ease;
+  }
+
+  .method[data-scene='true'] .step[data-on='true'] {
+    opacity: 1;
+  }
+}

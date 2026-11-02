@@ -1,0 +1,252 @@
+.night {
+  position: relative;
+  min-height: 115svh;
+  overflow: hidden;
+  background:
+    radial-gradient(60% 50% at 50% 100%, rgb(254 74 2 / 0.25), transparent 70%),
+    radial-gradient(40% 35% at 20% 30%, rgb(192 33 60 / 0.25), transparent 70%),
+    radial-gradient(40% 35% at 80% 25%, rgb(11 93 75 / 0.3), transparent 70%),
+    #070205;
+  color: var(--ivory);
+  isolation: isolate;
+}
+
+.fireworks {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+.lasers {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 18%;
+  height: 120%;
+  z-index: 1;
+  pointer-events: none;
+  mix-blend-mode: screen;
+}
+
+.laser {
+  position: absolute;
+  bottom: 0;
+  width: 2px;
+  height: 110%;
+  transform-origin: 50% 100%;
+  background: linear-gradient(to top, var(--beam), transparent 85%);
+  filter: blur(0.5px);
+  box-shadow: 0 0 14px 2px var(--beam);
+  opacity: 0.75;
+  animation: sweep var(--speed) ease-in-out infinite alternate;
+  animation-play-state: paused;
+}
+
+.night[data-live='true'] .laser,
+.night[data-live='true'] :global(.dancer),
+.night[data-live='true'] .eq i,
+.night[data-live='true'] .deck {
+  animation-play-state: running;
+}
+
+@keyframes sweep {
+  from {
+    transform: rotate(var(--from));
+  }
+  to {
+    transform: rotate(var(--to));
+  }
+}
+
+.haze {
+  position: absolute;
+  inset: auto 0 0;
+  height: 55%;
+  z-index: 2;
+  background: linear-gradient(to top, rgb(7 2 5 / 0.95), transparent);
+  pointer-events: none;
+}
+
+.content {
+  position: relative;
+  z-index: 4;
+  display: grid;
+  gap: 1.4rem;
+  padding: clamp(7rem, 16vh, 11rem) var(--gutter) 0;
+  max-width: 62rem;
+}
+
+.content :global(.eyebrow) {
+  color: var(--gold);
+}
+
+.title {
+  font-size: var(--fs-xxl);
+  font-weight: 300;
+  line-height: 0.86;
+}
+
+.title em {
+  display: block;
+  background: linear-gradient(90deg, #ff4fa0, #fe9313 45%, #ffd27a);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.copy {
+  max-width: 32rem;
+  color: rgb(251 246 234 / 0.8);
+}
+
+.drop {
+  justify-self: start;
+}
+
+.booth {
+  position: absolute;
+  left: 50%;
+  bottom: clamp(70px, 13vw, 180px);
+  z-index: 3;
+  width: min(560px, 80vw);
+  transform: translateX(-50%);
+}
+
+.console {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.4rem 1.2rem;
+  border-radius: 14px 14px 4px 4px;
+  background: linear-gradient(180deg, #2a0c16, #12050a);
+  box-shadow: 0 -10px 60px -10px rgb(254 74 2 / 0.6), inset 0 1px 0 rgb(255 255 255 / 0.08);
+}
+
+.deck {
+  justify-self: center;
+  width: clamp(54px, 9vw, 96px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: repeating-radial-gradient(circle, #1a1a1a 0 2px, #2a2a2a 2px 4px);
+  border: 2px solid #d9a441;
+  position: relative;
+  animation: spin 1.8s linear infinite;
+  animation-play-state: paused;
+}
+
+.deck::after {
+  content: '';
+  position: absolute;
+  inset: 38%;
+  border-radius: 50%;
+  background: #fe4a02;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.led {
+  display: grid;
+  justify-items: center;
+  gap: 0.4rem;
+}
+
+.led strong {
+  font-family: var(--font-display), var(--font-deva), Georgia, serif;
+  font-size: clamp(1.1rem, 2.4vw, 1.8rem);
+  letter-spacing: 0.4em;
+  color: #ffd27a;
+  text-shadow: 0 0 12px #fe9313, 0 0 30px #fe4a02;
+}
+
+.eq {
+  display: flex;
+  align-items: flex-end;
+  gap: 3px;
+  height: 34px;
+}
+
+.eq i {
+  width: 4px;
+  height: 100%;
+  border-radius: 2px;
+  background: linear-gradient(to top, #fe4a02, #ffd27a);
+  transform-origin: bottom;
+  animation: bounce var(--d) ease-in-out infinite alternate;
+  animation-play-state: paused;
+}
+
+@keyframes bounce {
+  from {
+    transform: scaleY(0.15);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+
+.crowd {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 3;
+  width: 100%;
+  height: clamp(130px, 20vw, 280px);
+}
+
+.night :global(.dancer) {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: groove 0.48s ease-in-out infinite alternate;
+  animation-play-state: paused;
+}
+
+.night :global(.dancer-1) {
+  animation-delay: -0.16s;
+}
+
+.night :global(.dancer-2) {
+  animation-delay: -0.32s;
+}
+
+@keyframes groove {
+  from {
+    transform: translateY(0) rotate(-1.5deg);
+  }
+  to {
+    transform: translateY(-6px) rotate(1.5deg);
+  }
+}
+
+.night[data-bass='true'] .booth {
+  animation: thump 0.18s ease-out 3 alternate;
+}
+
+@keyframes thump {
+  to {
+    transform: translateX(-50%) scale(1.04);
+  }
+}
+
+.hint {
+  position: absolute;
+  right: var(--gutter);
+  top: clamp(7rem, 16vh, 11rem);
+  z-index: 4;
+  display: none;
+  color: rgb(251 246 234 / 0.6);
+}
+
+@media (min-width: 900px) {
+  .hint {
+    display: block;
+  }
+}

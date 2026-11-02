@@ -1,0 +1,199 @@
+.header {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  height: var(--header-h);
+  padding-inline: var(--gutter);
+  color: var(--ivory);
+  transition: transform 0.6s var(--ease-out), color 0.5s ease, background-color 0.5s ease;
+}
+
+.header[data-hidden='true'] {
+  transform: translateY(-110%);
+}
+
+.header[data-solid='true'] {
+  background: linear-gradient(to bottom, rgb(12 5 7 / 0.72), rgb(12 5 7 / 0));
+}
+
+.header[data-theme='light'] {
+  color: var(--maroon-900);
+}
+
+.header[data-theme='light'][data-solid='true'] {
+  background: linear-gradient(to bottom, rgb(251 246 234 / 0.88), rgb(251 246 234 / 0));
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.mark {
+  width: 46px;
+  height: auto;
+  filter: drop-shadow(0 6px 14px rgb(254 74 2 / 0.35));
+}
+
+.word {
+  display: grid;
+  line-height: 1;
+}
+
+.word strong {
+  font-family: var(--font-display), var(--font-deva), Georgia, serif;
+  font-size: 1.55rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+}
+
+.word small {
+  margin-top: 0.3rem;
+  font-size: 0.56rem;
+  letter-spacing: 0.38em;
+  text-transform: uppercase;
+  opacity: 0.8;
+}
+
+.nav {
+  display: none;
+  align-items: center;
+  gap: clamp(1.25rem, 2.4vw, 2.6rem);
+}
+
+.nav a {
+  position: relative;
+  font-size: 0.74rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+.nav a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -0.45rem;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.5s var(--ease-out);
+}
+
+.nav a:hover::after,
+.nav a[aria-current='true']::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.cta {
+  display: none;
+}
+
+.menuButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  min-height: 44px;
+  padding: 0 0.25rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+}
+
+.menuButton i {
+  display: grid;
+  gap: 5px;
+  width: 26px;
+}
+
+.menuButton i::before,
+.menuButton i::after {
+  content: '';
+  height: 1px;
+  background: currentColor;
+  transition: transform 0.5s var(--ease-out);
+}
+
+.menuButton[aria-expanded='true'] i::before {
+  transform: translateY(3px) rotate(45deg);
+}
+
+.menuButton[aria-expanded='true'] i::after {
+  transform: translateY(-3px) rotate(-45deg);
+}
+
+.menu {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: calc(var(--header-h) + 2rem) var(--gutter) 2rem;
+  background:
+    radial-gradient(circle at 80% 15%, rgb(254 74 2 / 0.25), transparent 45%),
+    radial-gradient(circle at 10% 90%, rgb(217 178 106 / 0.18), transparent 50%),
+    var(--maroon-900);
+  color: var(--ivory);
+  clip-path: circle(0% at calc(100% - var(--gutter) - 13px) calc(var(--header-h) / 2));
+  visibility: hidden;
+  transition: clip-path 0.9s var(--ease-in-out), visibility 0s linear 0.9s;
+}
+
+.menu[data-open='true'] {
+  clip-path: circle(150% at calc(100% - var(--gutter) - 13px) calc(var(--header-h) / 2));
+  visibility: visible;
+  transition: clip-path 0.9s var(--ease-in-out), visibility 0s;
+}
+
+.menu ol {
+  display: grid;
+  gap: 0.4rem;
+  list-style: none;
+  counter-reset: item;
+}
+
+.menu li a {
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+  font-family: var(--font-display), var(--font-deva), Georgia, serif;
+  font-size: clamp(2.4rem, 9vw, 4.5rem);
+  line-height: 1.1;
+}
+
+.menu li a span {
+  font-family: var(--font-deva), serif;
+  font-size: 1rem;
+  color: var(--gold);
+}
+
+.menuFoot {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 1rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+@media (min-width: 1100px) {
+  .nav,
+  .cta {
+    display: inline-flex;
+  }
+
+  .menuButton {
+    display: none;
+  }
+}

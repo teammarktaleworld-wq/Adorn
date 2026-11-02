@@ -1,0 +1,251 @@
+.birthday {
+  position: relative;
+  height: 420vh;
+  background: #fbe9ee;
+  color: #4a1a3a;
+}
+
+.sticky {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  overflow: hidden;
+}
+
+.sky {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(50% 40% at 20% 20%, rgb(255 255 255 / 0.8), transparent 70%),
+    radial-gradient(45% 35% at 85% 30%, rgb(217 201 242 / 0.8), transparent 70%),
+    linear-gradient(180deg, #f8d7e2 0%, #ecdcf6 50%, #d9e8f6 100%);
+}
+
+.cloud {
+  position: absolute;
+  height: auto;
+  color: #fff;
+  opacity: 0.85;
+  filter: blur(1px);
+}
+
+.sparkles i {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: #e8c27a;
+  clip-path: polygon(50% 0, 62% 38%, 100% 50%, 62% 62%, 50% 100%, 38% 62%, 0 50%, 38% 38%);
+  animation: twinkle 2.6s ease-in-out infinite alternate;
+}
+
+@keyframes twinkle {
+  from {
+    opacity: 0.2;
+    transform: scale(0.6) rotate(0deg);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1.2) rotate(45deg);
+  }
+}
+
+.castle {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: min(1100px, 130vw);
+  height: auto;
+  transform: translateX(-50%);
+}
+
+.birthday :global(.pennant) {
+  transform-box: fill-box;
+  transform-origin: 0 50%;
+  animation: flutter 1.6s ease-in-out infinite alternate;
+}
+
+@keyframes flutter {
+  from {
+    transform: skewY(-8deg) scaleX(0.9);
+  }
+  to {
+    transform: skewY(8deg) scaleX(1.05);
+  }
+}
+
+.canvas {
+  position: absolute;
+  inset: 0;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: grid;
+  pointer-events: none;
+}
+
+.beat {
+  grid-area: 1 / 1;
+  align-self: center;
+  padding: calc(var(--header-h) + 2rem) var(--gutter) 0;
+  max-width: min(46rem, 92vw);
+}
+
+.beat :global(.eyebrow) {
+  color: #9a5a7a;
+}
+
+.beat h2,
+.beat h3 {
+  margin-top: 0.8rem;
+  font-size: var(--fs-xxl);
+  font-weight: 300;
+  line-height: 0.88;
+  color: #4a1a3a;
+}
+
+.beat em {
+  color: #c2457a;
+}
+
+.beat p:not(:global(.eyebrow)) {
+  margin-top: 1rem;
+  max-width: 30rem;
+  color: #6a3a5a;
+}
+
+.moment {
+  align-self: center;
+  justify-self: start;
+  margin: var(--header-h) var(--gutter) 0;
+  display: grid;
+  gap: 0.6rem;
+  padding: clamp(1.6rem, 3vw, 2.6rem);
+  border: 1px solid rgb(184 137 58 / 0.6);
+  border-radius: 999px 999px 28px 28px;
+  background: rgb(255 250 246 / 0.72);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: 0 30px 70px -40px rgb(74 26 58 / 0.5);
+  text-align: center;
+}
+
+.crown {
+  justify-self: center;
+  width: 54px;
+  color: #c9952f;
+}
+
+.name {
+  font-family: var(--font-display), var(--font-deva), Georgia, serif;
+  font-size: clamp(3rem, 8vw, 7.5rem);
+  font-style: italic;
+  font-weight: 400;
+  line-height: 0.9;
+  color: #b23a6e;
+}
+
+.age {
+  font-size: clamp(1.1rem, 1.8vw, 1.6rem);
+  font-family: var(--font-display), var(--font-deva), Georgia, serif;
+  letter-spacing: 0.08em;
+}
+
+.date {
+  justify-self: center;
+  padding: 0.5rem 1.2rem;
+  border-top: 1px solid rgb(184 137 58 / 0.5);
+  border-bottom: 1px solid rgb(184 137 58 / 0.5);
+  font-size: 0.78rem;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  color: #8a5a20;
+}
+
+.hint {
+  position: absolute;
+  left: 50%;
+  bottom: 1.6rem;
+  z-index: 3;
+  transform: translateX(-50%);
+  color: #9a5a7a;
+  pointer-events: none;
+}
+
+.wish {
+  position: relative;
+  display: grid;
+  gap: 2.5rem;
+  align-items: center;
+  padding: clamp(5rem, 10vw, 8rem) var(--gutter);
+  background: linear-gradient(180deg, #d9e8f6, #fbe9ee 60%, #fff4ec);
+  color: #4a1a3a;
+  overflow: hidden;
+}
+
+.wishArt {
+  justify-self: center;
+  width: min(360px, 76vw);
+  height: auto;
+}
+
+.wish :global(.flame) {
+  transition: opacity 0.4s ease;
+}
+
+.wish :global(.smoke) {
+  transition: opacity 1.2s ease;
+}
+
+.wish h3 {
+  font-size: var(--fs-xl);
+  font-weight: 300;
+  line-height: 0.95;
+}
+
+.wish h3 em {
+  color: #c2457a;
+}
+
+.wish p {
+  margin-top: 1rem;
+  max-width: 30rem;
+  color: #6a3a5a;
+}
+
+.wishButton {
+  margin-top: 1.6rem;
+  background: linear-gradient(120deg, #f4b6c2, #e98aa6 50%, #e8c27a);
+  color: #3d0c1c;
+  box-shadow: 0 14px 36px -16px rgb(194 69 122 / 0.7);
+}
+
+.confetti {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.confetti i {
+  position: absolute;
+  top: -5%;
+  width: 8px;
+  height: 14px;
+  border-radius: 2px;
+  animation: fall 2.6s cubic-bezier(0.2, 0.6, 0.4, 1) forwards;
+}
+
+@keyframes fall {
+  to {
+    transform: translate(var(--dx), 115vh) rotate(var(--r));
+  }
+}
+
+@media (min-width: 900px) {
+  .wish {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+}

@@ -1,0 +1,80 @@
+.gateway {
+  position: relative;
+  height: 230vh;
+  background: var(--maroon-900);
+  color: var(--ivory);
+}
+
+.sticky {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+  background:
+    radial-gradient(60% 50% at 50% 55%, rgb(254 74 2 / 0.22), transparent 70%),
+    repeating-linear-gradient(115deg, rgb(255 255 255 / 0.018) 0 2px, transparent 2px 9px),
+    linear-gradient(160deg, #4a0c1d, #2a0914 55%, #1a0710);
+}
+
+.arches {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+}
+
+.arch {
+  position: absolute;
+  width: min(52vw, 70svh);
+  height: auto;
+  color: var(--gold);
+  will-change: transform, opacity;
+}
+
+.inner {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  justify-items: center;
+  gap: clamp(1rem, 2vw, 1.6rem);
+  padding-inline: var(--gutter);
+  text-align: center;
+}
+
+.numeral {
+  font-size: clamp(5rem, 13vw, 12rem);
+  line-height: 0.7;
+  color: transparent;
+  -webkit-text-stroke: 1px var(--gold);
+}
+
+.kicker {
+  color: var(--gold);
+}
+
+.title {
+  font-size: var(--fs-xxl);
+  font-weight: 300;
+  line-height: 0.88;
+}
+
+.title em {
+  color: var(--gold-bright);
+}
+
+.sub {
+  max-width: 34rem;
+  color: rgb(251 246 234 / 0.8);
+}
+
+.dusk {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  background: linear-gradient(180deg, #3a1030 0%, #a3402a 55%, #f7931e 100%);
+  opacity: 0;
+  pointer-events: none;
+}

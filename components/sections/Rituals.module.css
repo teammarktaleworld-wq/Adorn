@@ -1,0 +1,185 @@
+.rituals {
+  position: relative;
+  background: #f2b705;
+}
+
+.intro {
+  padding: clamp(6rem, 12vw, 10rem) var(--gutter) clamp(3rem, 6vw, 5rem);
+  background: #12050a;
+  color: var(--ivory);
+}
+
+.intro h2 {
+  max-width: 14ch;
+  margin-top: 1rem;
+  font-size: var(--fs-xl);
+  font-weight: 300;
+  line-height: 0.95;
+}
+
+.intro h2 em {
+  color: var(--gold-bright);
+}
+
+.intro :global(.eyebrow) {
+  color: var(--gold);
+}
+
+.track {
+  display: grid;
+}
+
+.panel {
+  position: relative;
+  display: grid;
+  align-items: center;
+  gap: 2rem;
+  min-height: 100svh;
+  padding: calc(var(--header-h) + 2rem) var(--gutter) 3rem;
+  overflow: hidden;
+  background: var(--bg);
+  color: var(--ink-color);
+}
+
+.art {
+  justify-self: center;
+  width: min(78vw, 64svh, 620px);
+  height: auto;
+  filter: drop-shadow(0 30px 40px rgb(0 0 0 / 0.25));
+}
+
+.word {
+  position: absolute;
+  right: -2vw;
+  bottom: -6vh;
+  font-size: clamp(8rem, 26vw, 28rem);
+  line-height: 1;
+  color: transparent;
+  -webkit-text-stroke: 1.5px var(--stroke);
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.text {
+  position: relative;
+  z-index: 1;
+  max-width: 32rem;
+}
+
+.text :global(.eyebrow) {
+  opacity: 0.8;
+}
+
+.text h3 {
+  margin-top: 0.6rem;
+  font-size: var(--fs-xxl);
+  font-weight: 300;
+  line-height: 0.85;
+}
+
+.text p {
+  margin-top: 1.2rem;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1.6rem;
+  list-style: none;
+}
+
+.chips li {
+  padding: 0.45rem 0.9rem;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  opacity: 0.85;
+}
+
+.progress {
+  display: none;
+}
+
+.panel :global(.bulb) {
+  animation: twinkle 2.4s ease-in-out infinite alternate;
+}
+
+.panel :global(.agni) {
+  transform-origin: 200px 300px;
+  animation: blaze 1.6s ease-in-out infinite alternate;
+}
+
+@keyframes twinkle {
+  from {
+    opacity: 0.45;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes blaze {
+  from {
+    transform: scale(1, 1);
+  }
+  to {
+    transform: scale(0.95, 1.06);
+  }
+}
+
+@media (min-width: 900px) {
+  .rituals[data-horizontal='true'] {
+    height: 500vh;
+  }
+
+  .rituals[data-horizontal='true'] .sticky {
+    position: sticky;
+    top: 0;
+    height: 100svh;
+    overflow: hidden;
+  }
+
+  .rituals[data-horizontal='true'] .track {
+    display: flex;
+    width: max-content;
+    height: 100%;
+    will-change: transform;
+  }
+
+  .rituals[data-horizontal='true'] .panel {
+    width: 100vw;
+    height: 100svh;
+    min-height: 0;
+  }
+
+  .panel {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 0.9fr);
+    gap: var(--gutter);
+  }
+
+  .art {
+    width: min(42vw, 72svh, 640px);
+  }
+
+  .rituals[data-horizontal='true'] .progress {
+    position: absolute;
+    left: var(--gutter);
+    right: var(--gutter);
+    bottom: 2rem;
+    z-index: 3;
+    display: block;
+    height: 2px;
+    background: rgb(18 11 13 / 0.15);
+  }
+
+  .progress i {
+    position: absolute;
+    inset: 0;
+    background: var(--maroon-900);
+    transform: scaleX(0);
+    transform-origin: left;
+  }
+}

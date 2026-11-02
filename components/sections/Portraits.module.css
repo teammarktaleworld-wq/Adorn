@@ -1,0 +1,144 @@
+.portraits {
+  position: relative;
+  padding: clamp(6rem, 12vw, 11rem) var(--gutter);
+  overflow: hidden;
+  background:
+    radial-gradient(60% 40% at 50% 0%, rgb(217 178 106 / 0.18), transparent 70%),
+    #fbf6ea;
+  color: var(--maroon-900);
+}
+
+.jaali {
+  position: absolute;
+  inset: 0;
+  opacity: 0.35;
+  background-image:
+    radial-gradient(circle at 50% 50%, transparent 9px, rgb(184 137 58 / 0.18) 9.5px 10.5px, transparent 11px),
+    radial-gradient(circle at 0 0, transparent 9px, rgb(184 137 58 / 0.18) 9.5px 10.5px, transparent 11px);
+  background-size: 30px 30px;
+  -webkit-mask-image: linear-gradient(180deg, transparent, #000 30%, #000 70%, transparent);
+  mask-image: linear-gradient(180deg, transparent, #000 30%, #000 70%, transparent);
+  pointer-events: none;
+}
+
+.grid {
+  position: relative;
+  display: grid;
+  gap: clamp(3rem, 6vw, 5rem);
+  align-items: center;
+}
+
+.figure {
+  position: relative;
+  display: grid;
+  gap: 1.2rem;
+}
+
+.archWrap {
+  position: relative;
+  aspect-ratio: 3 / 4;
+}
+
+.clip {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  clip-path: url(#clip-arch);
+  background: var(--maroon-900);
+}
+
+.art {
+  position: absolute;
+  inset: -6% 0;
+  width: 100%;
+  height: 112%;
+  will-change: transform;
+}
+
+.frame {
+  position: absolute;
+  inset: -2.5% -3% -1.5%;
+  width: 106%;
+  height: 104%;
+  pointer-events: none;
+}
+
+.caption {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-top: 0.9rem;
+  border-top: 1px solid rgb(126 90 22 / 0.35);
+}
+
+.caption strong {
+  font-family: var(--font-display), var(--font-deva), Georgia, serif;
+  font-size: clamp(1.4rem, 2vw, 1.9rem);
+  font-weight: 500;
+}
+
+.caption span {
+  color: var(--gold-text);
+  text-align: right;
+}
+
+.center {
+  display: grid;
+  justify-items: center;
+  gap: 1.4rem;
+  text-align: center;
+}
+
+.vivah {
+  font-size: clamp(2.6rem, 4.6vw, 4.6rem);
+  line-height: 1.1;
+  color: var(--red);
+}
+
+.center h2 {
+  font-size: var(--fs-l);
+  font-weight: 400;
+  line-height: 1;
+}
+
+.center p {
+  max-width: 24rem;
+  color: var(--ink-soft);
+}
+
+.flame {
+  width: 54px;
+  height: auto;
+}
+
+.flame path:first-child {
+  transform-origin: 50% 100%;
+  animation: flicker 1.8s ease-in-out infinite alternate;
+}
+
+@keyframes flicker {
+  0% {
+    transform: scale(1, 1) rotate(-2deg);
+  }
+  50% {
+    transform: scale(0.94, 1.06) rotate(2deg);
+  }
+  100% {
+    transform: scale(1.03, 0.96) rotate(-1deg);
+  }
+}
+
+@media (min-width: 900px) {
+  .grid {
+    grid-template-columns: minmax(0, 1fr) minmax(16rem, 0.62fr) minmax(0, 1fr);
+    gap: clamp(2rem, 3vw, 3.5rem);
+  }
+
+  .groom {
+    order: 3;
+  }
+
+  .center {
+    order: 2;
+  }
+}

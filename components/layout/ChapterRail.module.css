@@ -1,0 +1,94 @@
+.rail {
+  display: none;
+}
+
+@media (min-width: 1100px) and (hover: hover) {
+  .rail {
+    position: fixed;
+    top: 50%;
+    right: clamp(0.6rem, 1.2vw, 1.25rem);
+    z-index: 40;
+    display: block;
+    translate: 0 -50%;
+  }
+
+  .rail ol {
+    display: grid;
+    gap: 0.1rem;
+    padding: 0.45rem 0.25rem;
+    list-style: none;
+    border: 1px solid rgb(217 178 106 / 0.35);
+    border-radius: 999px;
+    background: rgb(26 7 16 / 0.42);
+    backdrop-filter: blur(10px);
+    transition: background-color 0.5s ease, border-color 0.5s ease;
+  }
+
+  .rail[data-theme='light'] ol {
+    border-color: rgb(126 90 22 / 0.35);
+    background: rgb(251 246 234 / 0.62);
+  }
+
+  .rail a {
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: 2.1rem;
+    height: 2.1rem;
+    border-radius: 50%;
+    color: rgb(251 246 234 / 0.6);
+    transition: color 0.3s ease, background-color 0.3s ease;
+  }
+
+  .num {
+    font-size: 0.95rem;
+    line-height: 1;
+  }
+
+  .rail a:hover,
+  .rail a:focus-visible {
+    color: var(--ivory);
+  }
+
+  .rail a[aria-current] {
+    color: var(--maroon-900);
+    background: var(--gold-bright);
+  }
+
+  .rail[data-theme='light'] a {
+    color: rgb(61 12 28 / 0.6);
+  }
+
+  .rail[data-theme='light'] a:hover,
+  .rail[data-theme='light'] a:focus-visible {
+    color: var(--maroon-900);
+  }
+
+  .rail[data-theme='light'] a[aria-current] {
+    color: var(--ivory);
+    background: var(--maroon);
+  }
+
+  .label {
+    position: absolute;
+    right: calc(100% + 0.9rem);
+    padding: 0.35rem 0.8rem;
+    border-radius: 999px;
+    background: var(--maroon-900);
+    color: var(--ivory);
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    opacity: 0;
+    translate: 0.5rem 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease, translate 0.4s var(--ease-out);
+  }
+
+  .rail a:hover .label,
+  .rail a:focus-visible .label {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
