@@ -71,45 +71,6 @@ export function createGlowMaterial(color: string, strength = 1) {
   });
 }
 
-// Light reflected on water: a column that breaks into ripples as it runs down toward the viewer.
-export function createReflectionMaterial(color: string) {
-  return new THREE.ShaderMaterial({
-    uniforms: { uTime: { value: 0 }, uColor: { value: new THREE.Color(color) } },
-    vertexShader: /* glsl */ `
-      attribute float aSeed;
-      varying vec2 vUv;
-      varying float vSeed;
-      void main() {
-        vUv = uv;
-        vSeed = aSeed;
-        vec4 center = modelViewMatrix * instanceMatrix * vec4(0.0, 0.0, 0.0, 1.0);
-        float scale = length(instanceMatrix[0].xyz);
-        center.xy += vec2(position.x * scale * 0.35, (position.y - 0.5) * scale * 2.4);
-        gl_Position = projectionMatrix * center;
-      }
-    `,
-    fragmentShader: /* glsl */ `
-      uniform float uTime;
-      uniform vec3 uColor;
-      varying vec2 vUv;
-      varying float vSeed;
-      void main() {
-        float fromTop = 1.0 - vUv.y;
-        float x = abs(vUv.x - 0.5) * 2.0;
-        float ripple = 0.5 + 0.5 * sin(fromTop * 46.0 - uTime * 3.0 + vSeed * 17.0);
-        float wobble = sin(fromTop * 13.0 + uTime * 2.0 + vSeed * 7.0) * 0.18 * fromTop;
-        float column = smoothstep(1.0, 0.0, abs(x + wobble) * (1.0 + fromTop * 1.5));
-        float fade = smoothstep(0.0, 0.08, vUv.y) * pow(vUv.y, 0.6);
-        float a = column * fade * mix(0.35, 1.0, ripple) * 0.9;
-        gl_FragColor = vec4(uColor * a, a);
-      }
-    `,
-    transparent: true,
-    depthWrite: false,
-    blending: THREE.AdditiveBlending,
-  });
-}
-
 // A gradient dome for skies: deep top, glowing horizon.
 export function createSkyMaterial(top: string, horizon: string, glow: string) {
   return new THREE.ShaderMaterial({

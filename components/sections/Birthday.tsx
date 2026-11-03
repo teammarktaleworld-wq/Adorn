@@ -106,7 +106,7 @@ export function Birthday() {
           </div>
           <div className={styles.overlay}>
             <div className={styles.beat}>
-              <p className="eyebrow">Chapter two · अध्याय दो</p>
+              <p className="eyebrow">Chapter two</p>
               <h2 id="kiara-title" className="display">
                 A princess <em>turns two.</em>
               </h2>

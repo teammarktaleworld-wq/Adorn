@@ -41,7 +41,7 @@ export function Gateway({ id, numeral, kicker, title, sub, header = 'dark' }: Pr
           ))}
         </div>
         <div className={styles.inner}>
-          <span className={`deva ${styles.numeral}`} aria-hidden="true">{numeral}</span>
+          <span className={styles.numeral} aria-hidden="true">{numeral}</span>
           <p className={`eyebrow ${styles.kicker}`}>{kicker}</p>
           <h2 id={`${id}-title`} className={`display ${styles.title}`}>{title}</h2>
           <p className={`lede ${styles.sub}`}>{sub}</p>

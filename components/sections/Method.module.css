@@ -35,6 +35,7 @@
 }
 
 .wheelCenter strong {
+  font-variant-numeric: lining-nums;
   font-family: var(--font-display), var(--font-deva), Georgia, serif;
   font-size: clamp(2.6rem, 6vw, 4.6rem);
   font-weight: 300;
@@ -75,7 +76,9 @@
 
 .step span {
   grid-row: span 2;
-  font-size: 1.6rem;
+  padding-top: 0.55rem;
+  font-size: 0.8rem;
+  letter-spacing: 0.16em;
   line-height: 1;
   color: var(--gold);
 }
@@ -114,7 +117,7 @@
   }
 
   .method[data-scene='true'] .step {
-    opacity: 0.28;
+    opacity: 0.72;
     transition: opacity 0.5s ease;
   }
 

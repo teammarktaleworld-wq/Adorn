@@ -9,11 +9,11 @@ import { Arrow } from '@/components/ui/Arrow';
 import styles from './Header.module.css';
 
 const links = [
-  { id: 'wedding', label: 'Weddings', deva: '१' },
-  { id: 'after-dark', label: 'After Dark', deva: '२' },
-  { id: 'kiara', label: 'Birthdays', deva: '३' },
-  { id: 'atelier', label: 'Atelier', deva: '४' },
-  { id: 'enquire', label: 'Enquire', deva: '५' },
+  { id: 'wedding', label: 'Weddings', num: '01' },
+  { id: 'after-dark', label: 'After Dark', num: '02' },
+  { id: 'kiara', label: 'Birthdays', num: '03' },
+  { id: 'atelier', label: 'Atelier', num: '04' },
+  { id: 'enquire', label: 'Enquire', num: '05' },
 ];
 
 export function Header() {
@@ -99,11 +99,11 @@ export function Header() {
   return (
     <>
       <header ref={ref} className={styles.header} data-theme={open ? 'dark' : theme} data-hidden={hidden && !open} data-solid={solid && !open}>
-        <a href="#top" className={styles.brand} onClick={go('top')} aria-label="Adorn The Event Company — back to the top">
+        <a href="#top" className={styles.brand} onClick={go('top')}>
           <AdornMark className={styles.mark} />
           <span className={styles.word}>
-            <strong>ADORN</strong>
-            <small>The Event Company</small>
+            <strong>ADORN</strong> <small>The Event Company</small>
+            <span className="sr-only">, back to the top</span>
           </span>
         </a>
         <nav className={styles.nav} aria-label="Primary">
@@ -127,7 +127,7 @@ export function Header() {
           {links.map((link) => (
             <li key={link.id}>
               <a href={`#${link.id}`} onClick={go(link.id)}>
-                <span>{link.deva}</span>
+                <span>{link.num}</span>
                 {link.label}
               </a>
             </li>

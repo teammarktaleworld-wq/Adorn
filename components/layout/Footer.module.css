@@ -83,7 +83,7 @@
   --fill: 0%;
   margin: 0 calc(var(--gutter) * -0.2);
   font-family: var(--font-display), var(--font-deva), Georgia, serif;
-  font-size: 27.5vw;
+  font-size: 25.5vw;
   font-weight: 500;
   line-height: 0.78;
   letter-spacing: -0.02em;

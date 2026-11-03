@@ -4,6 +4,7 @@ import { useEffect, useMemo, useRef } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import * as THREE from 'three';
 import { mergeGeometries } from 'three/examples/jsm/utils/BufferGeometryUtils.js';
+import { AdaptiveResolution } from './AdaptiveResolution';
 import { SceneEnvironment } from './environment';
 import { createPetalGeometry } from './geometry';
 import { createFlameMaterial, createGlowMaterial, createSkyMaterial } from './shaders';
@@ -520,6 +521,7 @@ export default function MandapScene({ active, lite, progress }: { active: boolea
       gl={{ antialias: !lite, powerPreference: 'high-performance' }}
       aria-hidden
     >
+      <AdaptiveResolution />
       <Scene progress={progress} lite={lite} />
     </Canvas>
   );

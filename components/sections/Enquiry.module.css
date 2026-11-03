@@ -52,13 +52,16 @@
 
 .next li {
   display: grid;
-  grid-template-columns: 2.4rem 1fr;
+  grid-template-columns: 2.2rem 1fr;
   align-items: baseline;
   font-family: var(--font-display), var(--font-deva), Georgia, serif;
   font-size: clamp(1.25rem, 1.7vw, 1.55rem);
 }
 
-.next :global(.deva) {
+.next li span {
+  font-family: var(--font-sans), system-ui, sans-serif;
+  font-size: 0.8rem;
+  letter-spacing: 0.12em;
   color: var(--gold-text);
 }
 
@@ -385,8 +388,7 @@ select.field option {
 }
 
 .card[data-sent='true'] {
-  display: grid;
-  align-content: center;
+  overflow: hidden;
 }
 
 .seal {

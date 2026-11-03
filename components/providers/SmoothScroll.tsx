@@ -36,5 +36,24 @@ export function SmoothScroll({ children }: { children: ReactNode }) {
     };
   }, []);
 
+  // Sections change height after load (sticky scenes switch on, fonts settle, the enquiry card
+  // folds away), so scroll positions are recalculated whenever the page height changes.
+  useEffect(() => {
+    let height = document.body.scrollHeight;
+    let timer = 0;
+    const observer = new ResizeObserver(() => {
+      const next = document.body.scrollHeight;
+      if (Math.abs(next - height) < 2) return;
+      height = next;
+      window.clearTimeout(timer);
+      timer = window.setTimeout(() => ScrollTrigger.refresh(), 160);
+    });
+    observer.observe(document.body);
+    return () => {
+      observer.disconnect();
+      window.clearTimeout(timer);
+    };
+  }, []);
+
   return <>{children}</>;
 }

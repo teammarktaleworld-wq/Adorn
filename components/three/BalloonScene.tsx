@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useRef } from 'react';
 import { Canvas, useFrame, useThree, type ThreeEvent } from '@react-three/fiber';
 import * as THREE from 'three';
+import { AdaptiveResolution } from './AdaptiveResolution';
 import { SceneEnvironment } from './environment';
 
 type Progress = { current: number };
@@ -279,6 +280,7 @@ export default function BalloonScene({ active, lite, wide, progress }: { active:
       gl={{ antialias: !lite, alpha: true, powerPreference: 'high-performance' }}
       aria-hidden
     >
+      <AdaptiveResolution />
       <SceneEnvironment
         top="#ffffff"
         horizon="#fbe3ea"

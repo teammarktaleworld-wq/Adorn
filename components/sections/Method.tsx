@@ -6,11 +6,11 @@ import { Rangoli } from '@/components/art/Rangoli';
 import styles from './Method.module.css';
 
 const steps = [
-  { deva: '१', title: 'Chai & conversation', text: 'We begin with your story — families, rituals, guest lists and the feeling you want people to leave with.' },
-  { deva: '२', title: 'The moodboard', text: 'Palettes, flowers, fabrics and sketches, refined together until it feels unmistakably yours.' },
-  { deva: '३', title: 'The craft', text: 'Décor, florals, lighting, entertainment and hospitality — briefed, built and rehearsed by our team.' },
-  { deva: '४', title: 'The celebration', text: 'On the day, we run every cue and every vendor, so your family is free to simply celebrate.' },
-  { deva: '५', title: 'The memory', text: 'When the last guest leaves, what stays is the feeling. That is the part we design for.' },
+  { num: '01', title: 'Chai & conversation', text: 'We begin with your story — families, rituals, guest lists and the feeling you want people to leave with.' },
+  { num: '02', title: 'The moodboard', text: 'Palettes, flowers, fabrics and sketches, refined together until it feels unmistakably yours.' },
+  { num: '03', title: 'The craft', text: 'Décor, florals, lighting, entertainment and hospitality — briefed, built and rehearsed by our team.' },
+  { num: '04', title: 'The celebration', text: 'On the day, we run every cue and every vendor, so your family is free to simply celebrate.' },
+  { num: '05', title: 'The memory', text: 'When the last guest leaves, what stays is the feeling. That is the part we design for.' },
 ];
 
 // How Adorn works: a rangoli turns as the steps are read, one petal-ring per step.
@@ -53,8 +53,8 @@ export function Method() {
           <Rangoli className={styles.rangoli} />
           <div className={styles.wheelCenter}>
             <div>
-              <strong className="deva">{steps[active].deva}</strong>
-              <p className="eyebrow" style={{ marginTop: '0.6rem', color: 'var(--gold)' }}>of five</p>
+              <strong>{steps[active].num}</strong>
+              <p className="eyebrow" style={{ marginTop: '0.6rem', color: 'var(--gold)' }}>of 05</p>
             </div>
           </div>
         </div>
@@ -68,7 +68,7 @@ export function Method() {
           <ol className={styles.steps}>
             {steps.map((step, i) => (
               <li key={step.title} className={styles.step} data-on={i === active}>
-                <span className="deva" aria-hidden="true">{step.deva}</span>
+                <span aria-hidden="true">{step.num}</span>
                 <h3>{step.title}</h3>
                 <p>{step.text}</p>
               </li>

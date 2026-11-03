@@ -43,7 +43,7 @@ export function ChapterRail() {
   return (
     <nav className={styles.rail} data-theme={theme} aria-label="Chapters">
       <ol>
-        {chapters.map(({ id, label, deva }, i) => (
+        {chapters.map(({ id, label }, i) => (
           <li key={id}>
             <a
               href={`#${id}`}
@@ -54,7 +54,7 @@ export function ChapterRail() {
               }}
             >
               <span className={styles.label}>{label}</span>
-              <span className={`deva ${styles.num}`} aria-hidden="true">{deva}</span>
+              <span className={styles.num} aria-hidden="true">{i + 1}</span>
             </a>
           </li>
         ))}

@@ -4,7 +4,6 @@ import { Footer } from '@/components/layout/Footer';
 import { GardenSymbols } from '@/components/art/Marigold';
 import { Doors } from '@/components/sections/Doors';
 import { Hero } from '@/components/sections/Hero';
-import { Manifesto } from '@/components/sections/Manifesto';
 import { Gateway } from '@/components/sections/Gateway';
 import { PalaceDusk } from '@/components/sections/PalaceDusk';
 import { Portraits } from '@/components/sections/Portraits';
@@ -26,11 +25,10 @@ export default function Home() {
       <ChapterRail />
       <main id="main">
         <Hero />
-        <Manifesto />
         <Gateway
           id="wedding"
-          numeral="१"
-          kicker="Chapter one · अध्याय एक"
+          numeral="01"
+          kicker="Chapter one"
           title={
             <>
               The Royal <em>Wedding</em>

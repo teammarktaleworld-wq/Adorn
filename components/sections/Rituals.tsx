@@ -102,7 +102,7 @@ export function Rituals() {
 
   return (
     <>
-      <div className={styles.intro} data-header="dark">
+      <div id="rituals" className={styles.intro} data-header="dark">
         <p className="eyebrow">The rituals · रस्में</p>
         <RevealLines className="display">
           Five ceremonies, <em>one unfolding story.</em>

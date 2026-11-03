@@ -16,11 +16,11 @@ export const site = {
 };
 
 export const chapters = [
-  { id: 'top', label: 'Welcome', deva: '०' },
-  { id: 'wedding', label: 'The Royal Wedding', deva: '१' },
-  { id: 'after-dark', label: 'After Dark', deva: '२' },
-  { id: 'kiara', label: 'Kiara Turns Two', deva: '३' },
-  { id: 'atelier', label: 'The Atelier', deva: '४' },
-  { id: 'services', label: 'What We Adorn', deva: '५' },
-  { id: 'enquire', label: 'Begin Yours', deva: '६' },
+  { id: 'top', label: 'Welcome' },
+  { id: 'wedding', label: 'The Royal Wedding' },
+  { id: 'after-dark', label: 'After Dark' },
+  { id: 'kiara', label: 'Kiara Turns Two' },
+  { id: 'atelier', label: 'The Atelier' },
+  { id: 'services', label: 'What We Adorn' },
+  { id: 'enquire', label: 'Begin Yours' },
 ] as const;

@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useId, useRef, useState, type ChangeEvent, type FormEvent } from 'react';
+import { useEffect, useId, useLayoutEffect, useRef, useState, type ChangeEvent, type FormEvent } from 'react';
 import { gsap } from '@/lib/gsap';
 import { celebrations, EMAIL_PATTERN, guestCounts, summarise, type Enquiry as Details } from '@/lib/enquiry';
 import { site } from '@/lib/site';
@@ -84,6 +84,7 @@ export function Enquiry() {
   const card = useRef<HTMLDivElement>(null);
   const thanks = useRef<HTMLDivElement>(null);
   const seal = useRef<HTMLDivElement>(null);
+  const cardHeight = useRef(0);
 
   useEffect(() => {
     const onPick = (event: Event) => setDetails((d) => ({ ...d, celebration: (event as CustomEvent<string>).detail }));
@@ -91,15 +92,23 @@ export function Enquiry() {
     return () => window.removeEventListener('adorn:celebration', onPick);
   }, []);
 
-  useEffect(() => {
-    if (status !== 'sent' || !thanks.current || !seal.current) return;
+  useLayoutEffect(() => {
+    if (status !== 'sent' || !thanks.current || !seal.current || !card.current) return;
+    const natural = card.current.offsetHeight;
     thanks.current.querySelector<HTMLElement>('h3')?.focus({ preventScroll: true });
-    if (card.current && card.current.getBoundingClientRect().top < 0) getLenis()?.scrollTo(card.current, { offset: -96 });
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    // The card folds down to its thank-you size, and the page brings it into view.
+    if (card.current && card.current.getBoundingClientRect().top < 80) {
+      const lenis = getLenis();
+      if (lenis) lenis.scrollTo(card.current, { offset: -100, duration: 1, immediate: reduce });
+      else card.current.scrollIntoView({ block: 'start' });
+    }
+    if (reduce) return;
     const [wax, ripple, ribbons] = ['[data-wax]', '[data-ripple]', '[data-ribbons]'].map((s) => seal.current!.querySelector(s));
     const tl = gsap.timeline();
-    tl.from(thanks.current.children, { y: 26, opacity: 0, stagger: 0.08, duration: 0.9, ease: 'power3.out' })
-      .fromTo(wax, { scale: 2.8, rotate: -42, opacity: 0 }, { scale: 1, rotate: -8, opacity: 1, duration: 0.5, ease: 'power4.in' }, 0.2)
+    tl.fromTo(card.current, { height: cardHeight.current }, { height: natural, duration: 0.8, ease: 'power3.inOut', clearProps: 'height' }, 0)
+      .from(thanks.current.children, { y: 26, opacity: 0, stagger: 0.08, duration: 0.9, ease: 'power3.out' }, 0.3)
+      .fromTo(wax, { scale: 2.8, rotate: -42, opacity: 0 }, { scale: 1, rotate: -8, opacity: 1, duration: 0.5, ease: 'power4.in' }, 0.9)
       .to(card.current, { y: 6, duration: 0.07, yoyo: true, repeat: 1, ease: 'power1.inOut' })
       .fromTo(ripple, { scale: 0.7, opacity: 0.9 }, { scale: 2.6, opacity: 0, duration: 1, ease: 'power2.out' }, '<')
       .from(ribbons, { scaleY: 0, transformOrigin: '50% 0%', duration: 0.7, ease: 'power3.out' }, '<');
@@ -111,7 +120,11 @@ export function Enquiry() {
   const update = (key: keyof Details) => (event: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const value = event.target.value;
     setDetails((d) => ({ ...d, [key]: value }));
-    if (invalid.includes(key)) setInvalid((list) => list.filter((k) => k !== key));
+    if (invalid.includes(key)) {
+      const left = invalid.filter((k) => k !== key);
+      setInvalid(left);
+      if (!left.length && status === 'invalid') setStatus('idle');
+    }
   };
 
   const submit = async (event: FormEvent<HTMLFormElement>) => {
@@ -133,7 +146,7 @@ export function Enquiry() {
         body: JSON.stringify({ ...details, company }),
       });
       if (response.ok) {
-        if (card.current && window.matchMedia('(min-width: 1100px)').matches) card.current.style.minHeight = `${card.current.offsetHeight}px`;
+        cardHeight.current = card.current?.offsetHeight ?? 0;
         setStatus('sent');
       } else setStatus(response.status === 503 ? 'unavailable' : response.status === 422 ? 'invalid' : 'error');
     } catch {
@@ -142,7 +155,6 @@ export function Enquiry() {
   };
 
   const startAgain = () => {
-    if (card.current) card.current.style.minHeight = '';
     setDetails(blank);
     setStatus('idle');
   };
@@ -164,9 +176,9 @@ export function Enquiry() {
         <Rise className={styles.introBody}>
           <p className="lede">Share a few details and a planner from our team will be in touch to talk it all through — the rituals, the guest list, the dream.</p>
           <ol className={styles.next}>
-            <li><span className="deva" aria-hidden="true">१</span>We read every word you send.</li>
-            <li><span className="deva" aria-hidden="true">२</span>A planner calls for chai and a conversation.</li>
-            <li><span className="deva" aria-hidden="true">३</span>Your first moodboard arrives.</li>
+            <li><span aria-hidden="true">1</span>We read every word you send.</li>
+            <li><span aria-hidden="true">2</span>A planner calls for chai and a conversation.</li>
+            <li><span aria-hidden="true">3</span>Your first moodboard arrives.</li>
           </ol>
           {(site.email || site.phone || site.whatsapp) && (
             <p className={styles.direct}>

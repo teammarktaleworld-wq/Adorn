@@ -45,6 +45,9 @@
 }
 
 .numeral {
+  font-family: var(--font-display), Georgia, serif;
+  font-weight: 300;
+  font-variant-numeric: lining-nums;
   font-size: clamp(5rem, 13vw, 12rem);
   line-height: 0.7;
   color: transparent;

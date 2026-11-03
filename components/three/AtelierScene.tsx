@@ -3,6 +3,7 @@
 import { useMemo, useRef } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
+import { AdaptiveResolution } from './AdaptiveResolution';
 import { SceneEnvironment } from './environment';
 import { createPetalGeometry } from './geometry';
 import { createFlameMaterial, createGlowMaterial } from './shaders';
@@ -87,7 +88,7 @@ function createLeafGeometry(length = 1.3, width = 0.34) {
 function Kalash() {
   const brass = useBrass();
   const pot = useMemo(() => lathe([[0, 0], [0.5, 0], [0.62, 0.08], [0.9, 0.42], [1.0, 0.8], [0.92, 1.18], [0.66, 1.46], [0.4, 1.6], [0.36, 1.72], [0.5, 1.82], [0.54, 1.9], [0.32, 1.9], [0, 1.9]]), []);
-  const leaf = useMemo(() => createLeafGeometry(), []);
+  const leaf = useMemo(() => createLeafGeometry(1.45, 0.36), []);
   const leafMaterial = useMemo(() => new THREE.MeshStandardMaterial({ color: '#2f7d3a', roughness: 0.45, side: THREE.DoubleSide, envMapIntensity: 0.8 }), []);
   const coconut = useMemo(() => new THREE.MeshStandardMaterial({ color: '#7a4a24', roughness: 0.92 }), []);
   const thread = useMemo(() => new THREE.MeshStandardMaterial({ color: '#c0213c', roughness: 0.6 }), []);
@@ -104,7 +105,7 @@ function Kalash() {
         const a = (i / 8) * Math.PI * 2;
         return (
           <group key={i} position={[Math.cos(a) * 0.34, 1.84, Math.sin(a) * 0.34]} rotation-y={-a - Math.PI / 2}>
-            <mesh geometry={leaf} material={leafMaterial} rotation-x={-1.1} />
+            <mesh geometry={leaf} material={leafMaterial} rotation-x={-0.78} />
           </group>
         );
       })}
@@ -123,7 +124,7 @@ function Marigold() {
   const COUNT = 640;
   const petal = useMemo(() => createPetalGeometry(), []);
   const material = useMemo(() => new THREE.MeshStandardMaterial({ side: THREE.DoubleSide, roughness: 0.6, envMapIntensity: 0.6 }), []);
-  const green = useMemo(() => new THREE.MeshStandardMaterial({ color: '#3b7a2a', roughness: 0.6 }), []);
+  const green = useMemo(() => new THREE.MeshStandardMaterial({ color: '#4f8f35', roughness: 0.6 }), []);
   const build = (target: THREE.InstancedMesh | null) => {
     if (!target) return;
     const golden = Math.PI * (3 - Math.sqrt(5));
@@ -157,8 +158,8 @@ function Marigold() {
   return (
     <group position-y={0.15} rotation-x={0.35}>
       <instancedMesh ref={build} args={[petal, material, COUNT]} />
-      <mesh position-y={-0.62} rotation-x={Math.PI} material={green}>
-        <coneGeometry args={[0.5, 0.42, 24]} />
+      <mesh position-y={-0.6} rotation-x={Math.PI} material={green}>
+        <coneGeometry args={[0.34, 0.3, 24]} />
       </mesh>
       <mesh position-y={-1.7} material={green}>
         <cylinderGeometry args={[0.05, 0.07, 1.8, 12]} />
@@ -181,7 +182,8 @@ function Kandil() {
     g.translate(0, 0, -0.275);
     return g;
   }, []);
-  const paper = useMemo(() => new THREE.MeshStandardMaterial({ color: '#ffb347', emissive: new THREE.Color('#ff6a1a'), emissiveIntensity: 1.3, roughness: 0.7 }), []);
+  const paper = useMemo(() => new THREE.MeshStandardMaterial({ color: '#ffb347', emissive: new THREE.Color('#ff6a1a'), emissiveIntensity: 0.75, roughness: 0.7 }), []);
+  const inner = useMemo(() => new THREE.MeshStandardMaterial({ color: '#e0336f', emissive: new THREE.Color('#c0213c'), emissiveIntensity: 0.6, roughness: 0.6 }), []);
   const trim = useMemo(() => new THREE.MeshStandardMaterial({ color: '#c0213c', roughness: 0.5 }), []);
   const brass = useBrass();
   const tassels: [number, number][] = [[0, -1.25], [-0.884, -0.884], [0.884, -0.884]];
@@ -189,6 +191,14 @@ function Kandil() {
     <group position-y={0.35}>
       <mesh geometry={star} material={paper} />
       <mesh scale={[1.03, 1.03, 0.3]} geometry={star} material={trim} />
+      {[1, -1].map((side) => (
+        <group key={side} position-z={side * 0.47} rotation-y={side < 0 ? Math.PI : 0}>
+          <mesh scale={[0.5, 0.5, 0.12]} rotation-z={Math.PI / 8} geometry={star} material={inner} />
+          <mesh position-z={0.06} material={trim}>
+            <torusGeometry args={[0.2, 0.025, 8, 40]} />
+          </mesh>
+        </group>
+      ))}
       <mesh position-y={1.9} material={brass}>
         <cylinderGeometry args={[0.012, 0.012, 1.3, 6]} />
       </mesh>
@@ -262,7 +272,9 @@ function Showcase({ index, spin, still }: { index: number; spin: Spin; still: bo
     groups.current.forEach((g, i) => {
       if (!g) return;
       const target = i === index ? 1 : 0;
-      shown.current[i] = still ? target : shown.current[i] + (target - shown.current[i]) * (1 - Math.pow(0.004, dt));
+      // Outgoing objects leave quickly so two never crowd the stage.
+      const rate = target ? 0.012 : 0.00004;
+      shown.current[i] = still ? target : shown.current[i] + (target - shown.current[i]) * (1 - Math.pow(rate, dt));
       const s = shown.current[i];
       lamp += LAMP_LIGHT[i] * s;
       g.visible = s > 0.01;
@@ -292,6 +304,7 @@ export default function AtelierScene({ active, index, spin, wide, still }: { act
       camera={{ position: [0, 0.6, 7.2], fov: 38 }}
       gl={{ antialias: true, alpha: true, powerPreference: 'high-performance' }}
     >
+      <AdaptiveResolution />
       <SceneEnvironment
         top="#2a1a20"
         horizon="#c9773a"
