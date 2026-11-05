@@ -124,7 +124,7 @@ export function Birthday() {
               <p className="eyebrow">Celebrating</p>
               <p className={styles.name}>Kiara</p>
               <p className={styles.age}>2nd Birthday</p>
-              <p className={styles.date}>6 January 2014</p>
+              <p className={styles.date}>7 January 2012</p>
             </div>
           </div>
           <p className={`eyebrow ${styles.hint}`}>Tap a balloon to pop it</p>
